@@ -10,6 +10,19 @@
       />
       <button class="new-task-button">+ Add</button>
     </div>
+    <nav>
+      <ul class="tab-wrapper">
+        <li class="tab-item is-active">
+          <button class="tab-button">All (3)</button>
+        </li>
+        <li class="tab-item">
+          <button class="tab-button">Current (2)</button>
+        </li>
+        <li class="tab-item">
+          <button class="tab-button">Completed (1)</button>
+        </li>
+      </ul>
+    </nav>
   </main>
 </template>
 
@@ -22,6 +35,36 @@ export default {
 <style>
 html {
   background-color: #fbfbfb;
+}
+
+.tab-wrapper {
+  display: flex;
+  column-gap: 30px;
+  list-style: none;
+  margin: 45px 0;
+  padding: 0;
+}
+
+.tab-item {
+  padding-bottom: 6px;
+}
+
+.tab-item.is-active {
+  border-bottom: 3px solid #0631f8;
+}
+
+.tab-button {
+  border: 0;
+  background-color: transparent;
+  color: #6b6b6b;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-family: 'Source Sans Pro';
+  padding: 0;
+}
+
+.tab-button:hover {
+  cursor: pointer;
 }
 
 .new-task-wrapper {
