@@ -46,8 +46,16 @@ export default {
         <input type="checkbox" class="sr-only" />
         <p class="task-list-text">Go to the grocery store</p>
         <div class="task-list-cta">
-          <p><IconEdit /><span class="sr-only">Edit</span></p>
-          <p><IconDelete /><span class="sr-only">Delete</span></p>
+          <p>
+            <IconEdit class="task-list-cta-icon" /><span class="sr-only"
+              >Edit</span
+            >
+          </p>
+          <p>
+            <IconDelete class="task-list-cta-icon" /><span class="sr-only"
+              >Delete</span
+            >
+          </p>
         </div>
       </li>
       <li class="task-list-item">
@@ -55,8 +63,16 @@ export default {
         <input type="checkbox" class="sr-only" />
         <p class="task-list-text">Go to the grocery store</p>
         <div class="task-list-cta">
-          <p><IconEdit /><span class="sr-only">Edit</span></p>
-          <p><IconDelete /><span class="sr-only">Delete</span></p>
+          <p>
+            <IconEdit class="task-list-cta-icon" /><span class="sr-only"
+              >Edit</span
+            >
+          </p>
+          <p>
+            <IconDelete class="task-list-cta-icon" /><span class="sr-only"
+              >Delete</span
+            >
+          </p>
         </div>
       </li>
     </ul>
@@ -70,6 +86,14 @@ html {
 
 .task-list {
   padding: 0;
+}
+
+.task-list-cta-icon .icon-object {
+  fill: #2d2d2d;
+}
+
+.task-list-cta-icon:hover .icon-object {
+  fill: #0728bf;
 }
 
 .task-list-item {
@@ -109,8 +133,16 @@ html {
   padding-bottom: 6px;
 }
 
+.tab-item:hover .tab-button {
+  color: #0728bf;
+}
+
 .tab-item.is-active {
   border-bottom: 3px solid #0631f8;
+}
+
+.tab-item.is-active .tab-button {
+  color: #2d2d2d;
 }
 
 .tab-button {
