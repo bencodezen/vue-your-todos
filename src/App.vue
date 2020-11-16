@@ -16,11 +16,23 @@ export default {
   setup() {
     const state = reactive({
       newTaskInput: '',
-      taskList: []
+      taskList: [
+        {
+          complete: true,
+          label: 'Milk'
+        },
+        {
+          complete: false,
+          label: 'Bread'
+        }
+      ]
     })
 
     const addTask = () => {
-      state.taskList.push(state.newTaskInput)
+      state.taskList.push({
+        complete: false,
+        label: state.newTaskInput
+      })
       state.newTaskInput = ''
     }
 
@@ -60,11 +72,24 @@ export default {
       </ul>
     </nav>
     <ul class="task-list">
-      <li v-for="taskItem in taskList" :key="taskItem" class="task-list-item">
-        <IconCircle />
-        <IconCheckCircle />
-        <input type="checkbox" class="sr-only" />
-        <p class="task-list-text">{{ taskItem }}</p>
+      <li
+        v-for="taskItem in taskList"
+        :key="taskItem.label"
+        class="task-list-item"
+      >
+        <div class="task-list-checkbox-wrapper">
+          <IconCheckCircle v-show="taskItem.complete" />
+          <IconCircle v-show="!taskItem.complete" />
+          <input
+            type="checkbox"
+            v-model="taskItem.complete"
+            :checked="taskItem.complete"
+            class="task-list-checkbox"
+          />
+        </div>
+        <p class="task-list-text">
+          {{ taskItem.label }} {{ taskItem.complete }}
+        </p>
         <div class="task-list-cta">
           <p>
             <IconEdit class="task-list-cta-icon" /><span class="sr-only"
@@ -85,6 +110,20 @@ export default {
 <style>
 html {
   background-color: #fbfbfb;
+}
+
+.task-list-checkbox-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-list-checkbox {
+  position: absolute;
+  left: -3px;
+  bottom: 2px;
+  opacity: 0;
 }
 
 .task-list {
