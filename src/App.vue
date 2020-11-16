@@ -51,9 +51,15 @@ export default {
       state.taskList.push({
         id: uuid(),
         complete: false,
+        edit: false,
         label: state.newTaskInput
       })
       state.newTaskInput = ''
+    }
+
+    const toggleEdit = taskId => {
+      const taskIndex = state.taskList.findIndex(task => task.id === taskId)
+      state.taskList[taskIndex].edit = !state.taskList[taskIndex].edit
     }
 
     const deleteTask = taskId => {
@@ -71,7 +77,8 @@ export default {
       addTask,
       deleteTask,
       setView,
-      tasksInView
+      tasksInView,
+      toggleEdit
     }
   }
 }
@@ -126,12 +133,19 @@ export default {
             class="task-list-checkbox"
           />
         </div>
-        <p class="task-list-text">{{ taskItem.label }}</p>
+        <input
+          v-if="taskItem.edit"
+          class="task-list-edit-input"
+          type="text"
+          v-model="taskItem.label"
+        />
+        <p v-else class="task-list-text">{{ taskItem.label }}</p>
         <div class="task-list-cta">
           <p>
-            <IconEdit class="task-list-cta-icon" /><span class="sr-only"
-              >Edit</span
-            >
+            <IconEdit
+              class="task-list-cta-icon"
+              @click="toggleEdit(taskItem.id)"
+            /><span class="sr-only">Edit</span>
           </p>
           <p>
             <IconDelete
@@ -195,10 +209,13 @@ html {
   column-gap: 16px;
 }
 
+.task-list-edit-input,
 .task-list-text {
   margin-left: 12px;
   font-weight: bold;
   flex: 1;
+  border: 0;
+  font-size: 16px;
 }
 
 .tab-wrapper {
