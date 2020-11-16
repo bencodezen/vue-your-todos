@@ -1,5 +1,6 @@
 <script>
 import { computed, reactive, toRefs } from 'vue'
+import { v4 as uuid } from 'uuid'
 import IconCheckCircle from './components/IconCheckCircle.vue'
 import IconCircle from './components/IconCircle.vue'
 import IconDelete from './components/IconDelete.vue'
@@ -17,16 +18,7 @@ export default {
     const state = reactive({
       currentView: 'All',
       newTaskInput: '',
-      taskList: [
-        {
-          complete: true,
-          label: 'Milk'
-        },
-        {
-          complete: false,
-          label: 'Bread'
-        }
-      ]
+      taskList: []
     })
 
     const taskLists = reactive({
@@ -57,10 +49,16 @@ export default {
 
     const addTask = () => {
       state.taskList.push({
+        id: uuid(),
         complete: false,
         label: state.newTaskInput
       })
       state.newTaskInput = ''
+    }
+
+    const deleteTask = taskId => {
+      const taskIndex = state.taskList.findIndex(task => task.id === taskId)
+      state.taskList.splice(taskIndex, 1)
     }
 
     const setView = viewLabel => {
@@ -71,6 +69,7 @@ export default {
       ...toRefs(state),
       ...toRefs(taskViews),
       addTask,
+      deleteTask,
       setView,
       tasksInView
     }
@@ -127,9 +126,7 @@ export default {
             class="task-list-checkbox"
           />
         </div>
-        <p class="task-list-text">
-          {{ taskItem.label }}
-        </p>
+        <p class="task-list-text">{{ taskItem.label }}</p>
         <div class="task-list-cta">
           <p>
             <IconEdit class="task-list-cta-icon" /><span class="sr-only"
@@ -137,9 +134,10 @@ export default {
             >
           </p>
           <p>
-            <IconDelete class="task-list-cta-icon" /><span class="sr-only"
-              >Delete</span
-            >
+            <IconDelete
+              class="task-list-cta-icon"
+              @click="deleteTask(taskItem.id)"
+            /><span class="sr-only">Delete</span>
           </p>
         </div>
       </li>
