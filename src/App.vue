@@ -1,5 +1,5 @@
 <script>
-import { reactive, toRefs } from 'vue'
+import { computed, reactive, toRefs } from 'vue'
 import IconCheckCircle from './components/IconCheckCircle.vue'
 import IconCircle from './components/IconCircle.vue'
 import IconDelete from './components/IconDelete.vue'
@@ -15,6 +15,7 @@ export default {
   },
   setup() {
     const state = reactive({
+      currentView: 'All',
       newTaskInput: '',
       taskList: [
         {
@@ -28,6 +29,28 @@ export default {
       ]
     })
 
+    const taskViews = reactive({
+      allTasksLength: computed(() => {
+        return state.taskList.length
+      }),
+      currentTasksLength: computed(() => {
+        return state.taskList.filter(item => item.complete === false).length
+      }),
+      completedTasksLength: computed(() => {
+        return state.taskList.filter(item => item.complete === true).length
+      })
+    })
+
+    const tasksInView = computed(() => {
+      if (state.currentView === 'Current') {
+        return state.taskList.filter(item => item.complete === false)
+      } else if (state.currentView === 'Completed') {
+        return state.taskList.filter(item => item.complete === true)
+      } else {
+        return state.taskList
+      }
+    })
+
     const addTask = () => {
       state.taskList.push({
         complete: false,
@@ -36,9 +59,16 @@ export default {
       state.newTaskInput = ''
     }
 
+    const setView = viewLabel => {
+      state.currentView = viewLabel
+    }
+
     return {
       ...toRefs(state),
-      addTask
+      ...toRefs(taskViews),
+      addTask,
+      setView,
+      tasksInView
     }
   }
 }
@@ -61,19 +91,25 @@ export default {
     <nav>
       <ul class="tab-wrapper">
         <li class="tab-item is-active">
-          <button class="tab-button">All (3)</button>
+          <button class="tab-button" @click="setView('All')">
+            All ({{ allTasksLength }})
+          </button>
         </li>
         <li class="tab-item">
-          <button class="tab-button">Current (2)</button>
+          <button class="tab-button" @click="setView('Current')">
+            Current ({{ currentTasksLength }})
+          </button>
         </li>
         <li class="tab-item">
-          <button class="tab-button">Completed (1)</button>
+          <button class="tab-button" @click="setView('Completed')">
+            Completed ({{ completedTasksLength }})
+          </button>
         </li>
       </ul>
     </nav>
     <ul class="task-list">
       <li
-        v-for="taskItem in taskList"
+        v-for="taskItem in tasksInView"
         :key="taskItem.label"
         class="task-list-item"
       >
