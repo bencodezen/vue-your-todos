@@ -90,7 +90,7 @@ export default {
         v-model="newTaskInput"
         @keyup.enter="addTask"
       />
-      <button class="new-task-button">+ Add</button>
+      <button class="new-task-button" @click="addTask">+ Add</button>
     </div>
     <nav>
       <ul class="tab-wrapper">
