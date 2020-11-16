@@ -29,16 +29,20 @@ export default {
       ]
     })
 
+    const taskLists = reactive({
+      all: computed(() => state.taskList),
+      current: computed(() =>
+        state.taskList.filter(item => item.complete === false)
+      ),
+      completed: computed(() =>
+        state.taskList.filter(item => item.complete === true)
+      )
+    })
+
     const taskViews = reactive({
-      allTasksLength: computed(() => {
-        return state.taskList.length
-      }),
-      currentTasksLength: computed(() => {
-        return state.taskList.filter(item => item.complete === false).length
-      }),
-      completedTasksLength: computed(() => {
-        return state.taskList.filter(item => item.complete === true).length
-      })
+      allTasksLength: computed(() => taskLists.all.length),
+      currentTasksLength: computed(() => taskLists.current.length),
+      completedTasksLength: computed(() => taskLists.completed.length)
     })
 
     const tasksInView = computed(() => {
