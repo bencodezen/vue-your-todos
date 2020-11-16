@@ -88,7 +88,7 @@ export default {
           />
         </div>
         <p class="task-list-text">
-          {{ taskItem.label }} {{ taskItem.complete }}
+          {{ taskItem.label }}
         </p>
         <div class="task-list-cta">
           <p>
