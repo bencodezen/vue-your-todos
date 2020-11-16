@@ -139,7 +139,13 @@ export default {
           type="text"
           v-model="taskItem.label"
         />
-        <p v-else class="task-list-text">{{ taskItem.label }}</p>
+        <p
+          v-else
+          class="task-list-text"
+          :class="taskItem.complete ? 'is-complete' : ''"
+        >
+          {{ taskItem.label }}
+        </p>
         <div class="task-list-cta">
           <p>
             <IconEdit
@@ -216,6 +222,11 @@ html {
   flex: 1;
   border: 0;
   font-size: 16px;
+}
+
+.task-list-text.is-complete {
+  color: #6b6b6b;
+  text-decoration: line-through;
 }
 
 .tab-wrapper {
