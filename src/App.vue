@@ -274,13 +274,21 @@ html {
 .new-task-input {
   padding: 16px;
   font-weight: 600;
-  color: #959595;
+  color: #2d2d2d;
   flex: 1;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   border: 1px solid #f6f6f6;
   box-shadow: 2px 2px 8px 0 #c0c0c0;
   letter-spacing: 1px;
+}
+
+.new-task-input:hover {
+  border: 1px solid #0631f8;
+}
+
+.new-task-input::placeholder {
+  color: #959595;
 }
 
 .new-task-button {
@@ -291,6 +299,11 @@ html {
   border: 0;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+  transition: 0.2s background ease-in;
+}
+
+.new-task-button:hover {
+  background-color: #082ac9;
 }
 
 .main-wrapper {
