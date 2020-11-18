@@ -238,7 +238,7 @@ html {
 }
 
 .tab-item {
-  padding-bottom: 6px;
+  padding-bottom: 2px;
 }
 
 .tab-item:hover .tab-button {
