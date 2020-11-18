@@ -233,7 +233,7 @@ html {
   display: flex;
   column-gap: 30px;
   list-style: none;
-  margin: 45px 0;
+  margin: 45px 0 20px;
   padding: 0;
 }
 
