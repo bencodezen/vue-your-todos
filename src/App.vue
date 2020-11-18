@@ -188,6 +188,11 @@ html {
   padding: 0;
 }
 
+.task-list-cta-icon {
+  opacity: 0;
+  transition: 0.2s opacity ease-in;
+}
+
 .task-list-cta-icon .icon-object {
   fill: #2d2d2d;
 }
@@ -208,6 +213,11 @@ html {
 
 .task-list-item:hover {
   border: 1px solid #0631f8;
+}
+
+.task-list-item:hover .task-list-cta-icon,
+.task-list-item:focus .task-list-cta-icon {
+  opacity: 1;
 }
 
 .task-list-cta {
