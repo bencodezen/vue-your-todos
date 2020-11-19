@@ -308,6 +308,7 @@ html {
   border: 1px solid #f6f6f6;
   box-shadow: 2px 2px 8px 0 #c0c0c0;
   letter-spacing: 1px;
+  font-size: 1rem;
 }
 
 .new-task-input:hover {
@@ -327,6 +328,7 @@ html {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   transition: 0.2s background ease-in;
+  font-size: 1rem;
 }
 
 .new-task-button:hover {
@@ -352,6 +354,7 @@ html {
   font-weight: bold;
   color: #6b6b6b;
   margin-top: 0;
+  margin-bottom: 30px;
   letter-spacing: 0.67px;
 }
 </style>
