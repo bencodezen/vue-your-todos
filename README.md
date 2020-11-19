@@ -14,8 +14,8 @@ The codebase is a fun exploration of Vue.js 3's Composition API and is not repre
 ## 📌 Milestones
 
 - [01: Start](https://github.com/bencodezen/vue-your-todos/tree/001-starting-point): Where we started
-- [02: HTML & CSS v1](https://github.com/bencodezen/vue-your-todos/tree/02-html-css-v1)
-- [03: JavaScript v1](https://github.com/bencodezen/vue-your-todos/tree/03-javascript-v1)
+- [02: HTML & CSS v1](https://github.com/bencodezen/vue-your-todos/tree/02-html-css-v1): What we worked on in [Vue Your Todos - Part 1](https://www.youtube.com/watch?v=tlWmdvX2cQA)
+- [03: JavaScript v1](https://github.com/bencodezen/vue-your-todos/tree/03-javascript-v1): What we worked on in [Vue Your Todos - Part 2](https://www.youtube.com/watch?v=yd2-3CfM3oQ)
 
 ## Setup
 
