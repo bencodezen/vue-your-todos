@@ -287,6 +287,7 @@ html {
   font-weight: bold;
   font-family: 'Source Sans Pro';
   padding: 0;
+  font-size: 1rem;
 }
 
 .tab-button:hover {
