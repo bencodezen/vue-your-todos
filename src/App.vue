@@ -87,7 +87,17 @@ export default {
 <template>
   <main class="main-wrapper">
     <h1 class="page-title">Vue Your Todo</h1>
-    <p class="subtitle">A todo app powered by Vue.js 3</p>
+    <p class="subtitle">
+      A todo app powered by
+      <a href="https://v3.vuejs.org/">Vue 3</a>
+      <span>, </span>
+      <a
+        href="https://www.netlify.com/?utm_source=github&utm_medium=vueyourtodos-bh&utm_campaign=devex"
+        >Netlify</a
+      >
+      <span> & </span>
+      <a href="https://www.github.com/bencodezen/peek-a-vue"> GitHub</a>
+    </p>
     <div class="new-task-wrapper">
       <input
         type="text"
