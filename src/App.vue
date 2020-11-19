@@ -110,17 +110,23 @@ export default {
     </div>
     <nav>
       <ul class="tab-wrapper">
-        <li class="tab-item is-active">
+        <li class="tab-item" :class="currentView === 'All' ? 'is-active' : ''">
           <button class="tab-button" @click="setView('All')">
             All ({{ allTasksLength }})
           </button>
         </li>
-        <li class="tab-item">
+        <li
+          class="tab-item"
+          :class="currentView === 'Current' ? 'is-active' : ''"
+        >
           <button class="tab-button" @click="setView('Current')">
             Current ({{ currentTasksLength }})
           </button>
         </li>
-        <li class="tab-item">
+        <li
+          class="tab-item"
+          :class="currentView === 'Completed' ? 'is-active' : ''"
+        >
           <button class="tab-button" @click="setView('Completed')">
             Completed ({{ completedTasksLength }})
           </button>
