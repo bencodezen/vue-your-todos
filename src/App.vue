@@ -6,6 +6,7 @@ import IconCircle from './components/IconCircle.vue'
 import IconDelete from './components/IconDelete.vue'
 import IconEdit from './components/IconEdit.vue'
 import MainHero from './components/MainHero.vue'
+import TabNav from './components/TabNav.vue'
 
 export default {
   name: 'App',
@@ -14,7 +15,8 @@ export default {
     IconCircle,
     IconDelete,
     IconEdit,
-    MainHero
+    MainHero,
+    TabNav
   },
   setup() {
     const state = reactive({
@@ -33,11 +35,11 @@ export default {
       )
     })
 
-    const taskViews = reactive({
-      allTasksLength: computed(() => taskLists.all.length),
-      currentTasksLength: computed(() => taskLists.current.length),
-      completedTasksLength: computed(() => taskLists.completed.length)
-    })
+    const taskListOverview = reactive([
+      { name: 'All', length: computed(() => taskLists.all.length) },
+      { name: 'Current', length: computed(() => taskLists.current.length) },
+      { name: 'Completed', length: computed(() => taskLists.completed.length) }
+    ])
 
     const tasksInView = computed(() => {
       if (state.currentView === 'Current') {
@@ -75,12 +77,12 @@ export default {
 
     return {
       ...toRefs(state),
-      ...toRefs(taskViews),
       addTask,
       deleteTask,
       setView,
       tasksInView,
-      toggleEdit
+      toggleEdit,
+      taskListOverview
     }
   }
 }
@@ -99,31 +101,11 @@ export default {
       />
       <button class="new-task-button" @click="addTask">+ Add</button>
     </div>
-    <nav>
-      <ul class="tab-wrapper">
-        <li class="tab-item" :class="currentView === 'All' ? 'is-active' : ''">
-          <button class="tab-button" @click="setView('All')">
-            All ({{ allTasksLength }})
-          </button>
-        </li>
-        <li
-          class="tab-item"
-          :class="currentView === 'Current' ? 'is-active' : ''"
-        >
-          <button class="tab-button" @click="setView('Current')">
-            Current ({{ currentTasksLength }})
-          </button>
-        </li>
-        <li
-          class="tab-item"
-          :class="currentView === 'Completed' ? 'is-active' : ''"
-        >
-          <button class="tab-button" @click="setView('Completed')">
-            Completed ({{ completedTasksLength }})
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <TabNav
+      :currentView="currentView"
+      :taskListOverview="taskListOverview"
+      @update-current-view="setView"
+    />
     <ul class="task-list">
       <li
         v-for="taskItem in tasksInView"
@@ -244,45 +226,6 @@ html {
 .task-list-text.is-complete {
   color: #6b6b6b;
   text-decoration: line-through;
-}
-
-.tab-wrapper {
-  display: flex;
-  column-gap: 30px;
-  list-style: none;
-  margin: 45px 0 20px;
-  padding: 0;
-}
-
-.tab-item {
-  padding-bottom: 2px;
-}
-
-.tab-item:hover .tab-button {
-  color: #0728bf;
-}
-
-.tab-item.is-active {
-  border-bottom: 3px solid #0631f8;
-}
-
-.tab-item.is-active .tab-button {
-  color: #2d2d2d;
-}
-
-.tab-button {
-  border: 0;
-  background-color: transparent;
-  color: #6b6b6b;
-  letter-spacing: 1px;
-  font-weight: bold;
-  font-family: 'Source Sans Pro';
-  padding: 0;
-  font-size: 1rem;
-}
-
-.tab-button:hover {
-  cursor: pointer;
 }
 
 .new-task-wrapper {
