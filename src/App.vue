@@ -5,6 +5,7 @@ import IconCheckCircle from './components/IconCheckCircle.vue'
 import IconCircle from './components/IconCircle.vue'
 import IconDelete from './components/IconDelete.vue'
 import IconEdit from './components/IconEdit.vue'
+import MainHero from './components/MainHero.vue'
 
 export default {
   name: 'App',
@@ -12,7 +13,8 @@ export default {
     IconCheckCircle,
     IconCircle,
     IconDelete,
-    IconEdit
+    IconEdit,
+    MainHero
   },
   setup() {
     const state = reactive({
@@ -86,18 +88,7 @@ export default {
 
 <template>
   <main class="main-wrapper">
-    <h1 class="page-title">Vue Your Todo</h1>
-    <p class="subtitle">
-      A todo app powered by
-      <a href="https://v3.vuejs.org/">Vue 3</a>
-      <span>, </span>
-      <a
-        href="https://www.netlify.com/?utm_source=github&utm_medium=vueyourtodos-bh&utm_campaign=devex"
-        >Netlify</a
-      >
-      <span> & </span>
-      <a href="https://www.github.com/bencodezen/peek-a-vue"> GitHub</a>
-    </p>
+    <MainHero />
     <div class="new-task-wrapper">
       <input
         type="text"
@@ -338,23 +329,5 @@ html {
 .main-wrapper {
   max-width: 600px;
   margin: 0 auto;
-}
-
-.page-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 44px;
-  letter-spacing: 1.84px;
-  color: #2d2d2d;
-  margin-top: 104px;
-  margin-bottom: 0;
-}
-
-.subtitle {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #6b6b6b;
-  margin-top: 0;
-  margin-bottom: 30px;
-  letter-spacing: 0.67px;
 }
 </style>
