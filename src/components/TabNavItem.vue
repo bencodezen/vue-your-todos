@@ -1,4 +1,6 @@
 <script>
+import { computed, useCssModule } from 'vue'
+
 export default {
   props: {
     isActive: {
@@ -15,28 +17,39 @@ export default {
     }
   },
   setup(props, ctx) {
+    const style = useCssModule()
+
     const emitTabValue = () => {
       ctx.emit('emit-tab-value', {
         value: props.listName
       })
     }
 
+    const tabNavItemClassNames = computed(() => {
+      if (props.isActive) {
+        return [style.tabNavItem, style.isActive]
+      } else {
+        return style.tabNavItem
+      }
+    })
+
     return {
-      emitTabValue
+      emitTabValue,
+      tabNavItemClassNames
     }
   }
 }
 </script>
 
 <template>
-  <li class="tab-nav-item" :class="isActive ? 'is-active' : ''">
-    <button class="tab-nav-item-button" @click="emitTabValue">
+  <li :class="tabNavItemClassNames">
+    <button :class="$style.tabNavItemButton" @click="emitTabValue">
       {{ listName }} ({{ listLength }})
     </button>
   </li>
 </template>
 
-<style scoped>
+<style module>
 .tab-nav-item {
   padding-bottom: 2px;
 }
