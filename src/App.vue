@@ -109,7 +109,7 @@ export default {
     <ul class="task-list">
       <li
         v-for="taskItem in tasksInView"
-        :key="taskItem.label"
+        :key="taskItem.id"
         class="task-list-item"
       >
         <div class="task-list-checkbox-wrapper">
