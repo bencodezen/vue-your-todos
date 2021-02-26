@@ -1,79 +1,79 @@
 <script>
-import { computed, reactive, toRefs } from 'vue'
-import { v4 as uuid } from 'uuid'
-import IconCheckCircle from './components/IconCheckCircle.vue'
-import IconCircle from './components/IconCircle.vue'
-import IconDelete from './components/IconDelete.vue'
-import IconEdit from './components/IconEdit.vue'
-import MainHero from './components/MainHero.vue'
-import TabNav from './components/TabNav.vue'
+import { computed, reactive, ref, toRefs } from "vue";
+import { v4 as uuid } from "uuid";
+import IconCheckCircle from "./components/IconCheckCircle.vue";
+import IconCircle from "./components/IconCircle.vue";
+import IconDelete from "./components/IconDelete.vue";
+import IconEdit from "./components/IconEdit.vue";
+import MainHero from "./components/MainHero.vue";
+import TabNav from "./components/TabNav.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     IconCheckCircle,
     IconCircle,
     IconDelete,
     IconEdit,
     MainHero,
-    TabNav
+    TabNav,
   },
   setup() {
     const state = reactive({
-      currentView: 'All',
-      newTaskInput: '',
-      taskList: []
-    })
+      currentView: "All",
+      newTaskInput: "",
+      taskList: [],
+    });
 
     const taskLists = reactive({
       all: computed(() => state.taskList),
       current: computed(() =>
-        state.taskList.filter(item => item.complete === false)
+        state.taskList.filter((item) => item.complete === false)
       ),
       completed: computed(() =>
-        state.taskList.filter(item => item.complete === true)
-      )
-    })
+        state.taskList.filter((item) => item.complete === true)
+      ),
+    });
 
     const taskListOverview = reactive([
-      { name: 'All', length: computed(() => taskLists.all.length) },
-      { name: 'Current', length: computed(() => taskLists.current.length) },
-      { name: 'Completed', length: computed(() => taskLists.completed.length) }
-    ])
+      { name: "All", length: computed(() => taskLists.all.length) },
+      { name: "Current", length: computed(() => taskLists.current.length) },
+      { name: "Completed", length: computed(() => taskLists.completed.length) },
+    ]);
 
     const tasksInView = computed(() => {
-      if (state.currentView === 'Current') {
-        return state.taskList.filter(item => item.complete === false)
-      } else if (state.currentView === 'Completed') {
-        return state.taskList.filter(item => item.complete === true)
+      if (state.currentView === "Current") {
+        return state.taskList.filter((item) => item.complete === false);
+      } else if (state.currentView === "Completed") {
+        return state.taskList.filter((item) => item.complete === true);
       } else {
-        return state.taskList
+        return state.taskList;
       }
-    })
+    });
 
     const addTask = () => {
       state.taskList.push({
         id: uuid(),
         complete: false,
         edit: false,
-        label: state.newTaskInput
-      })
-      state.newTaskInput = ''
-    }
+        label: state.newTaskInput,
+      });
+      state.newTaskInput = "";
+    };
 
-    const toggleEdit = taskId => {
-      const taskIndex = state.taskList.findIndex(task => task.id === taskId)
-      state.taskList[taskIndex].edit = !state.taskList[taskIndex].edit
-    }
+    const toggleEdit = (taskId) => {
+      const taskIndex = state.taskList.findIndex((task) => task.id === taskId);
+      state.taskList[taskIndex].edit = !state.taskList[taskIndex].edit;
+    };
 
-    const deleteTask = taskId => {
-      const taskIndex = state.taskList.findIndex(task => task.id === taskId)
-      state.taskList.splice(taskIndex, 1)
-    }
+    const deleteTask = (taskId) => {
+      const taskIndex = state.taskList.findIndex((task) => task.id === taskId);
+      state.taskList.splice(taskIndex, 1);
+    };
 
-    const setView = viewLabel => {
-      state.currentView = viewLabel
-    }
+    const setView = (viewLabel) => {
+      state.currentView = viewLabel;
+    };
 
     return {
       ...toRefs(state),
@@ -82,10 +82,10 @@ export default {
       setView,
       tasksInView,
       toggleEdit,
-      taskListOverview
-    }
-  }
-}
+      taskListOverview,
+    };
+  },
+};
 </script>
 
 <template>
@@ -123,15 +123,20 @@ export default {
           />
         </div>
         <input
+          ref="editInput"
           v-if="taskItem.edit"
           class="task-list-edit-input"
           type="text"
           v-model="taskItem.label"
+          @focusout="toggleEdit(taskItem.id)"
+          @keyup.enter="$refs.editInput.blur()"
         />
         <p
           v-else
           class="task-list-text"
           :class="taskItem.complete ? 'is-complete' : ''"
+          @dblclick="toggleEdit(taskItem.id)"
+          @tap.stop="toggleEdit(taskItem.id)"
         >
           {{ taskItem.label }}
         </p>
